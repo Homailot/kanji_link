@@ -1,3 +1,4 @@
+import typing
 from typing import Optional
 
 from anki.models import NotetypeNameId
@@ -39,6 +40,33 @@ class MigrateDialog(QDialog):
             return
 
         self.deck_selected = self.decks[index]
+
+
+class NoteTypeListWidgetItem(QListWidgetItem):
+    def __init__(self, note_type: NotetypeNameId, note_count: int):
+        super().__init__(f"{note_type.name} ({note_count})", parent=None, type=1001)
+        self.note_type = note_type
+
+    def get_note_type(self):
+        return self.note_type
+
+
+def _take_selected_note_type(
+    list_widget: QListWidget,
+) -> Optional[NoteTypeListWidgetItem]:
+    selected_note_types = list_widget.selectedIndexes()
+    if len(selected_note_types) == 0:
+        return None
+
+    selected_note_type = selected_note_types[0]
+    selected_item = list_widget.takeItem(selected_note_type.row())
+    if selected_item is None:
+        return None
+
+    if not isinstance(selected_item, NoteTypeListWidgetItem):
+        return None
+
+    return typing.cast(NoteTypeListWidgetItem, selected_item)
 
 
 class NoteTypeMapper(QGridLayout):
@@ -86,22 +114,6 @@ class NoteTypeMapper(QGridLayout):
             self.note_types_list.addItem(item)
 
     def _on_add_to_migrate_released(self):
-        selected_note_types = self.note_types_list.selectedIndexes()
-        if len(selected_note_types) == 0:
-            print("No selected note type")
-            return
-
-        selected_note_type = selected_note_types[0]
-        selected_note_type_item = self.note_types_list.takeItem(
-            selected_note_type.row()
-        )
-        self.migrate_types_list.addItem(selected_note_type_item)
-
-
-class NoteTypeListWidgetItem(QListWidgetItem):
-    def __init__(self, note_type: NotetypeNameId, note_count: int):
-        super().__init__(f"{note_type.name} ({note_count})", parent=None, type=1001)
-        self.note_type = note_type
-
-    def get_note_type(self):
-        return self.note_type
+        selected_note_type_item = _take_selected_note_type(self.note_types_list)
+        if selected_note_type_item is not None:
+            self.migrate_types_list.addItem(selected_note_type_item)

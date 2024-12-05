@@ -1,7 +1,7 @@
 from aqt import mw
 from aqt.qt import *
 
-from src.migrate.gui import MigrateDialog
+from src.migrate.gui.deckselect import MigrateDialog
 
 
 def open_migrate() -> None:
@@ -9,7 +9,7 @@ def open_migrate() -> None:
     mw.dialog.exec()
 
 
-action = QAction("Migrate Deck to KanjiLink", mw)
+action = QAction("Migrate Deck to Structured Kanji", mw)
 qconnect(action.triggered, open_migrate)
 
 mw.form.menuTools.addAction(action)

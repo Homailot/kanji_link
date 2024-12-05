@@ -6,17 +6,18 @@ from aqt import mw
 from aqt.qt import *
 
 from src.migrate.gui.notemapper import NoteMapper
+from src.migrate.model.config import DeckConfig
 from src.resources import get_icon
 
 
 class MigrateDialog(QDialog):
     def __init__(self, parent: Optional[QWidget] = None, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
-        super().setWindowTitle("Migrate to Structured Kanji")
         self._setup_ui()
         self._load_data()
 
     def _setup_ui(self):
+        super().setWindowTitle("Migrate to Structured Kanji")
         self.resize(525, 587)
 
         self.deck_select = QComboBox(None)
@@ -52,9 +53,10 @@ class MigrateDialog(QDialog):
         if self.deck_selected is None:
             return
 
-        note_mapper = NoteMapper(selected_deck=self.deck_selected, parent=self.parent())
-        note_mapper.exec()
+        config = DeckConfig(self.deck_selected, self.deck_mapping.get_migrate_note_types(), self.deck_mapping.get_keep_note_types())
+        note_mapper = NoteMapper(config, parent=self.parent())
         self.close()
+        note_mapper.exec()
 
 
 class NoteTypeListWidgetItem(QListWidgetItem):
@@ -90,6 +92,20 @@ class NoteTypeMapper(QGridLayout):
         self._setup_ui()
         self._setup_events()
         self._load_data()
+
+    def get_migrate_note_types(self) -> list[NotetypeNameId]:
+        return [
+            typing.cast(NoteTypeListWidgetItem, item).get_note_type()
+            for item_idx in range(self.migrate_types_list.count())
+            if isinstance(item := self.migrate_types_list.item(item_idx), NoteTypeListWidgetItem)
+        ]
+
+    def get_keep_note_types(self) -> list[NotetypeNameId]:
+        return [
+            typing.cast(NoteTypeListWidgetItem, item).get_note_type()
+            for item_idx in range(self.keep_types_list.count())
+            if isinstance(item := self.keep_types_list.item(item_idx), NoteTypeListWidgetItem)
+        ]
 
     def _setup_ui(self):
         self.note_types_list = QListWidget()

@@ -5,9 +5,9 @@ from anki.models import NotetypeNameId
 from aqt import mw
 from aqt.qt import *
 
-from src.migrate.gui.notemapper import NoteMapper
-from src.migrate.model.config import DeckConfig
-from src.resources import get_icon
+from structured_kanji.migrate.gui.notemapper import NoteMapper
+from structured_kanji.migrate.model.config import DeckConfig
+from structured_kanji.resources import get_icon
 
 
 class MigrateDialog(QDialog):
@@ -53,7 +53,11 @@ class MigrateDialog(QDialog):
         if self.deck_selected is None:
             return
 
-        config = DeckConfig(self.deck_selected, self.deck_mapping.get_migrate_note_types(), self.deck_mapping.get_keep_note_types())
+        config = DeckConfig(
+            self.deck_selected,
+            self.deck_mapping.get_migrate_note_types(),
+            self.deck_mapping.get_keep_note_types(),
+        )
         note_mapper = NoteMapper(config, parent=self.parent())
         self.close()
         note_mapper.exec()
@@ -97,14 +101,18 @@ class NoteTypeMapper(QGridLayout):
         return [
             typing.cast(NoteTypeListWidgetItem, item).get_note_type()
             for item_idx in range(self.migrate_types_list.count())
-            if isinstance(item := self.migrate_types_list.item(item_idx), NoteTypeListWidgetItem)
+            if isinstance(
+                item := self.migrate_types_list.item(item_idx), NoteTypeListWidgetItem
+            )
         ]
 
     def get_keep_note_types(self) -> list[NotetypeNameId]:
         return [
             typing.cast(NoteTypeListWidgetItem, item).get_note_type()
             for item_idx in range(self.keep_types_list.count())
-            if isinstance(item := self.keep_types_list.item(item_idx), NoteTypeListWidgetItem)
+            if isinstance(
+                item := self.keep_types_list.item(item_idx), NoteTypeListWidgetItem
+            )
         ]
 
     def _setup_ui(self):
@@ -142,7 +150,9 @@ class NoteTypeMapper(QGridLayout):
         qconnect(self.reset_button.released, self._on_reset_released)
         qconnect(self.keep_types_list.itemPressed, self._on_keep_list_item_pressed)
         qconnect(self.note_types_list.itemPressed, self._on_note_list_item_pressed)
-        qconnect(self.migrate_types_list.itemPressed, self._on_migrate_list_item_pressed)
+        qconnect(
+            self.migrate_types_list.itemPressed, self._on_migrate_list_item_pressed
+        )
 
     def _load_data(self):
         self.note_types = mw.col.models.all_names_and_ids()
@@ -172,7 +182,6 @@ class NoteTypeMapper(QGridLayout):
         if selected_migrate_type_item is not None:
             self.note_types_list.addItem(selected_migrate_type_item)
 
-
     def _on_keep_list_item_pressed(self):
         self.note_types_list.clearSelection()
         self.migrate_types_list.clearSelection()
@@ -184,4 +193,3 @@ class NoteTypeMapper(QGridLayout):
     def _on_migrate_list_item_pressed(self):
         self.note_types_list.clearSelection()
         self.keep_types_list.clearSelection()
-

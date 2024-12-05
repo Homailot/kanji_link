@@ -1,7 +1,7 @@
 from aqt import mw
 from aqt.qt import *
 
-from src.migrate.gui.deckselect import MigrateDialog
+from .migrate.gui.deckselect import MigrateDialog
 
 
 def open_migrate() -> None:

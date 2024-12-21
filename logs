@@ -1,0 +1,24 @@
+Anki 24.11 (8e5efc59) (src) (ao)
+Python 3.12.7 Qt 6.8.1 PyQt 6.8.0.dev2411221125
+Platform: Linux-6.11.9-arch1-1-x86_64-with-glibc2.40
+
+Traceback (most recent call last):
+  File "/home/nunoa/.local/share/Anki2/addons21/structured_kanji/migrate/gui/deckselect.py", line 61, in _continue_pressed
+    note_mapper = NoteMapper(config, parent=self.parent())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/nunoa/.local/share/Anki2/addons21/structured_kanji/migrate/gui/notemapper.py", line 12, in __init__
+    self._setup_ui()
+  File "/home/nunoa/.local/share/Anki2/addons21/structured_kanji/migrate/gui/notemapper.py", line 20, in _setup_ui
+    self.layout.addWidget(WordTabs(self.deck_config, self))
+TypeError: addWidget(self, a0: Optional[QWidget], stretch: int = 0, alignment: Qt.AlignmentFlag = Qt.Alignment()): argument 1 has unexpected type 'WordTabs'
+
+===Add-ons (active)===
+(add-on provided name [Add-on folder, installed at, version, is config changed])
+'' ['structured_kanji', 0, 'None', '']
+
+===IDs of active AnkiWeb add-ons===
+
+
+===Add-ons (inactive)===
+(add-on provided name [Add-on folder, installed at, version, is config changed])
+

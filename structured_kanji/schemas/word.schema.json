@@ -1,0 +1,40 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "/structured_kanji/schemas/word.schema.json",
+    "title": "Word",
+    "description": "A structured representation of a japanese word and its meanings for creating Anki flashcards.",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "A unique identifier for the word.",
+            "format": "uuid"
+        },
+        "kanji": {
+            "type": "string",
+            "description": "The kanji representation of the word."
+        },
+        "readings": {
+            "type": "array",
+            "items": {
+                "$ref": "/structured_kanji/schemas/reading.schema.json"
+            },
+            "description": "The readings of the word."
+        },
+        "generateConsolidatedCards": {
+            "type": "object",
+            "description": "Indicates if the word should generate consolidated cards.",
+            "properties": {
+                "japaneseToEnglish": {
+                    "$ref": "/structured_kanji/schemas/cardOptions.schema.json",
+                    "description": "Indicates if the word should generate cards from Japanese to English."
+                },
+                "englishToJapanese": {
+                    "$ref": "/structured_kanji/schemas/cardOptions.schema.json",
+                    "description": "Indicates if the word should generate cards from English to Japanese."
+                }
+            }
+        }
+    },
+    "required": ["generateConsolidatedCards", "id", "kanji", "readings"]
+}

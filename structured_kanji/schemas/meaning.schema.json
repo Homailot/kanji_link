@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/structured_kanji/schemas/meaning.schema.json",
+  "title": "Meaning",
+  "description": "A structured representation of a meaning for a given japanese word.",
+  "type": "object",
+  "properties": {
+    "meaning": {
+      "type": "string",
+      "description": "The meaning of the word"
+    },
+    "partOfSpeech": {
+      "description": "The parts of speech of this word",
+      "type": "array",
+      "items": {
+        "enum": [
+          "noun",
+          "suffix",
+          "prefix",
+          "particle",
+          "pronoun",
+          "numeric",
+          "interjection",
+          "copula",
+          "conjunction",
+          "adverb (fukushi)",
+          "expression",
+          "irregular verb",
+          "suru verb",
+          "suru special class",
+          "suru included",
+          "kuru special class",
+          "iku/yuku special class",
+          "godan verb",
+          "ichidan verb",
+          "yodan verb",
+          "nidan verb",
+          "い-adjective",
+          "な-adjective",
+          "たる-adjective",
+          "pre-noun adjectival (rentaishi)",
+          "counter",
+          "auxiliary",
+          "auxiliary verb",
+          "auxiliary adjective"
+        ]
+      }
+    },
+    "transitivity": {
+      "type":
+    }
+  }
+}

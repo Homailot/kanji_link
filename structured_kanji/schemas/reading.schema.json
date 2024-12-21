@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "/structured_kanji/schemas/reading.schema.json",
+    "title": "Reading",
+    "description": "A structured representation of a japanese reading and its meanings for creating Anki flashcards.",
+    "type": "object",
+    "properties": {
+        "spellings": {
+            "type": "array",
+            "description": "The spellings of the reading.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "spelling": {
+                        "type": "string",
+                        "description": "The spelling of the word using Anki's ruby syntax.",
+                        "pattern": " ?([^ >]+?)\\[(.+?)\\]"
+                    },
+                    "audio": {
+                        "type": "string",
+                        "description": "The file name of the word's audio file using Anki's media folder."
+                    }
+                }
+            }
+       },
+        "meanings": {
+            "type": "array",
+            "items": {
+                "$ref": "/structured_kanji/schemas/meaning.schema.json"
+            },
+            "description": "The meanings of the reading."
+        }
+    },
+    "required": ["meanings","spellings"]
+}

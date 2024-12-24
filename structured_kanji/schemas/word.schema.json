@@ -36,5 +36,10 @@
             }
         }
     },
-    "required": ["generateConsolidatedCards", "id", "kanji", "readings"]
+    "required": [
+        "generateConsolidatedCards",
+        "id",
+        "kanji",
+        "readings"
+    ]
 }

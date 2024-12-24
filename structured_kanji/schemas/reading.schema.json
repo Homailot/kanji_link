@@ -7,29 +7,28 @@
     "properties": {
         "spellings": {
             "type": "array",
-            "description": "The spellings of the reading.",
+            "description": "The spelling of the word using Anki's ruby syntax.",
             "items": {
-                "type": "object",
-                "properties": {
-                    "spelling": {
-                        "type": "string",
-                        "description": "The spelling of the word using Anki's ruby syntax.",
-                        "pattern": " ?([^ >]+?)\\[(.+?)\\]"
-                    },
-                    "audio": {
-                        "type": "string",
-                        "description": "The file name of the word's audio file using Anki's media folder."
-                    }
-                }
-            }
-       },
+                "type": "string",
+                "pattern": " ?([^ >]+?)\\[(.+?)\\]",
+            },
+            "minItems": 1
+        },
+        "audio": {
+            "type": "string",
+            "description": "The file name of the word's audio file using Anki's media folder."
+        },
         "meanings": {
             "type": "array",
             "items": {
                 "$ref": "/structured_kanji/schemas/meaning.schema.json"
             },
             "description": "The meanings of the reading."
-        }
+        },
+        "jlptLevel"
     },
-    "required": ["meanings","spellings"]
+    "required": [
+        "meanings",
+        "spellings"
+    ]
 }

@@ -2,61 +2,32 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "/structured_kanji/schemas/meaning.schema.json",
     "title": "Meaning",
-    "description": "A structured representation of a meaning for a given japanese word.",
+    "description": "A structured representation of a meaning of a japanese word and its senses for creating Anki flashcards.",
     "type": "object",
     "properties": {
-        "meaning": {
-            "type": "string",
-            "description": "The meaning of the word"
-        },
-        "partOfSpeech": {
-            "description": "The parts of speech of this word",
+        "readings": {
             "type": "array",
+            "description": "The readings of the word using Anki's ruby syntax.",
             "items": {
-                "enum": [
-                    "noun",
-                    "suffix",
-                    "prefix",
-                    "particle",
-                    "pronoun",
-                    "numeric",
-                    "interjection",
-                    "copula",
-                    "conjunction",
-                    "adverb (fukushi)",
-                    "expression",
-                    "irregular verb",
-                    "suru verb",
-                    "suru special class",
-                    "suru included",
-                    "kuru special class",
-                    "iku/yuku special class",
-                    "godan verb",
-                    "ichidan verb",
-                    "yodan verb",
-                    "nidan verb",
-                    "い-adjective",
-                    "な-adjective",
-                    "たる-adjective",
-                    "pre-noun adjectival (rentaishi)",
-                    "counter",
-                    "auxiliary",
-                    "auxiliary verb",
-                    "auxiliary adjective"
-                ]
+                "$ref": "/structured_kanji/schemas/reading.schema.json"
             },
             "minItems": 1
         },
-        "transitivity": {
-            "enum": [
-                "transitive",
-                "intransitive",
-                "both"
-            ]
+        "senses": {
+            "type": "array",
+            "description": "The senses of the reading.",
+            "items": {
+                "$ref": "/structured_kanji/schemas/sense.schema.json"
+            },
+            "minItems": 1
+        },
+        "dictEntryId": {
+            "type": "string",
+            "description": "The ID of this meaning of the dictionary it was extracted from."
         }
     },
     "required": [
-        "partOfSpeech",
-        "meaning"
+        "senses",
+        "readings"
     ]
 }

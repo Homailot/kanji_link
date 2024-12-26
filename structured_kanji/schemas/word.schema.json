@@ -14,16 +14,16 @@
             "type": "string",
             "description": "The kanji representation of the word."
         },
-        "readings": {
+        "meanings": {
             "type": "array",
             "items": {
-                "$ref": "/structured_kanji/schemas/reading.schema.json"
+                "$ref": "/structured_kanji/schemas/meaning.schema.json"
             },
-            "description": "The readings of the word."
+            "description": "The meanings of the word."
         },
-        "generateConsolidatedCards": {
+        "generateCards": {
             "type": "object",
-            "description": "Indicates if the word should generate consolidated cards.",
+            "description": "Indicates if the word should generate cards.",
             "properties": {
                 "japaneseToEnglish": {
                     "$ref": "/structured_kanji/schemas/cardOptions.schema.json",
@@ -37,9 +37,9 @@
         }
     },
     "required": [
-        "generateConsolidatedCards",
+        "generateCards",
         "id",
         "kanji",
-        "readings"
+        "meanings"
     ]
 }

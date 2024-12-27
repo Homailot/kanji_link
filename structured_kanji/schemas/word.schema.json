@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "/structured_kanji/schemas/word.schema.json",
     "title": "Word",
-    "description": "A structured representation of a japanese word and its meanings for creating Anki flashcards.",
+    "description": "A structured representation of a word and its senses for creating Anki flashcards.",
     "type": "object",
     "properties": {
         "id": {
@@ -10,36 +10,99 @@
             "description": "A unique identifier for the word.",
             "format": "uuid"
         },
-        "kanji": {
-            "type": "string",
-            "description": "The kanji representation of the word."
-        },
-        "meanings": {
+        "readings": {
             "type": "array",
+            "description": "The readings of the word using Anki's ruby syntax.",
             "items": {
-                "$ref": "/structured_kanji/schemas/meaning.schema.json"
+                "$ref": "/structured_kanji/schemas/reading.schema.json"
             },
-            "description": "The meanings of the word."
+            "minItems": 1
         },
-        "generateCards": {
+        "senses": {
+            "type": "array",
+            "description": "The senses of the word.",
+            "items": {
+                "$ref": "/structured_kanji/schemas/sense.schema.json"
+            },
+            "minItems": 1
+        },
+        "image": {
+            "type": "string",
+            "description": "A path to an image in Anki's media folder."
+        },
+        "explanation": {
+            "type": "string",
+            "description": "An additional explanation of the word. Could be a mnemonic or some other distinguishing information."
+        },
+        "dictEntryId": {
+            "description": "The ID of this meaning of the dictionary it was extracted from.",
             "type": "object",
-            "description": "Indicates if the word should generate cards.",
             "properties": {
-                "japaneseToEnglish": {
-                    "$ref": "/structured_kanji/schemas/cardOptions.schema.json",
-                    "description": "Indicates if the word should generate cards from Japanese to English."
+                "source": {
+                    "type": "string",
+                    "description": "The dictionary source of the word."
                 },
-                "englishToJapanese": {
-                    "$ref": "/structured_kanji/schemas/cardOptions.schema.json",
-                    "description": "Indicates if the word should generate cards from English to Japanese."
+                "id": {
+                    "type": "number",
+                    "description": "The id identification in the given dictionary."
                 }
+            },
+            "required": [
+                "source",
+                "frequency"
+            ]
+        },
+        "frequency": {
+            "type": "array",
+            "description": "The frequency of this word in the language it was extracted from.",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "type": "string",
+                        "description": "The source of the frequency data."
+                    },
+                    "frequency": {
+                        "type": "number",
+                        "description": "The frequency of the word in the source."
+                    }
+                },
+                "required": [
+                    "source",
+                    "frequency"
+                ]
             }
+        },
+        "additionalFields": {
+            "type": "array",
+            "description": "Additional fields to be added to the card.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the field."
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "The value of the field."
+                    }
+                },
+                "required": [
+                    "name",
+                    "value"
+                ]
+            }
+        },
+        "definitionToWordSettings": {
+            "type": "object",
+            "description": "Indicates if the word should generate a card from definition to word.",
+            "$ref": "/structured_kanji/schemas/cardSettings.schema.json"
         }
     },
     "required": [
-        "generateCards",
         "id",
-        "kanji",
-        "meanings"
+        "readings"
     ]
 }

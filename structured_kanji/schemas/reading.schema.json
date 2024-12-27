@@ -19,24 +19,33 @@
                     },
                     "spellingInfo": {
                         "type": "array",
-                        "description": "The spelling information.",
+                        "description": "Spelling information about this specific spelling, such as uncommon kanji or ateji.",
                         "items": {
-                            "enum": [
-                                "ateji",
-                                "ik",
-                                "iK",
-                                "io",
-                                "oK",
-                                "rK",
-                                "sK"
-                            ]
-                        }
+                            "type": "string"
+                        },
+                        "minItems": 1
+                    },
+                    "relatedReadings": {
+                        "type": "array",
+                        "description": "Kana spellings used to disambiguate the reading for this specific word. Used when the reading is ambiguous, for example 一日 can be read as ついたち or いちにち.",
+                        "items": {
+                            "type": "string"
+                        } 
+                    },
+                    "wordToDefinitionSettings": {
+                        "type": "object",
+                        "description": "Indicates if the word should generate a card this spelling to definition.",
+                        "$ref": "/structured_kanji/schemas/cardSettings.schema.json"
                     }
                 },
                 "required": [
                     "spelling"
                 ]
             }
+        },
+        "kana": {
+            "type": "string",
+            "description": "The kana representation of the reading."
         },
         "audio": {
             "type": "string",
@@ -45,15 +54,9 @@
         "readingInfo": {
             "type": "array",
             "minItems": 1,
-            "description": "Information pertaining to the specific reading.",
+            "description": "Information pertaining to the specific reading, such as irregular kana usage or gikun.",
             "items": {
-                "enum": [
-                    "gikun",
-                    "ik",
-                    "ok",
-                    "rk",
-                    "sk"
-                ]
+                "type": "string"
             }
         },
         "pitchAccentNumber": {

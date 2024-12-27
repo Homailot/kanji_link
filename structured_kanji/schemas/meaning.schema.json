@@ -24,6 +24,28 @@
         "dictEntryId": {
             "type": "string",
             "description": "The ID of this meaning of the dictionary it was extracted from."
+        },
+        "frequency": {
+            "type": "array",
+            "description": "The frequency of this word in the language it was extracted from.",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "type": "string",
+                        "description": "The source of the frequency data."
+                    },
+                    "frequency": {
+                        "type": "number",
+                        "description": "The frequency of the word in the source."
+                    }
+                },
+                "required": [
+                    "source",
+                    "frequency"
+                ]
+            }
         }
     },
     "required": [

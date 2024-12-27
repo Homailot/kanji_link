@@ -8,15 +8,57 @@
         "spellings": {
             "type": "array",
             "description": "The spellings of the reading using Anki's ruby syntax.",
-            "minItems": 0,
+            "minItems": 1,
             "items": {
-                "type": "string",
-                "pattern": " ?([^ >]+?)\\[(.+?)\\]"
+                "type": "object",
+                "properties": {
+                    "spelling": {
+                        "type": "string",
+                        "description": "The text of the reading.",
+                        "pattern": " ?([^ >]+?)\\[(.+?)\\]"
+                    },
+                    "spellingInfo": {
+                        "type": "array",
+                        "description": "The spelling information.",
+                        "items": {
+                            "enum": [
+                                "ateji",
+                                "ik",
+                                "iK",
+                                "io",
+                                "oK",
+                                "rK",
+                                "sK"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "spelling"
+                ]
             }
         },
         "audio": {
             "type": "string",
             "description": "The file name of the reading's audio file using Anki's media folder."
+        },
+        "readingInfo": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Information pertaining to the specific reading.",
+            "items": {
+                "enum": [
+                    "gikun",
+                    "ik",
+                    "ok",
+                    "rk",
+                    "sk"
+                ]
+            }
+        },
+        "pitchAccentNumber": {
+            "type": "integer",
+            "description": "The pitch accent number of the reading."
         }
     },
     "required": [

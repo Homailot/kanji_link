@@ -35,7 +35,7 @@
         }
     },
     "required": [
-        "partOfSpeech",
+        "partsOfSpeech",
         "sense"
     ]
 }

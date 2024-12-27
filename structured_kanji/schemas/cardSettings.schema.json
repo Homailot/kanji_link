@@ -1,0 +1,50 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "/structured_kanji/schemas/cardSettings.schema.json",
+    "title": "Card Settings",
+    "description": "Card generation settings",
+    "type": "object",
+    "properties": {
+        "importCardId": {
+            "type": "string",
+            "description": "The id of the Anki card that this card is based on during the import process."
+        },
+        "importDeckId": {
+            "type": "string",
+            "description": "The id of the Anki deck that this card is based on during the import process."
+        },
+        "tags": {
+            "type": "array",
+            "description": "Tags to apply to the generated card.",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1
+        },
+        "noteId": {
+            "type": "string",
+            "description": "The current note id of the card."
+        },
+        "cardId": {
+            "type": "string",
+            "description": "The current card id of the card."
+        },
+        "flag": {
+            "description": "The flag of the card.",
+            "enum": [
+                "red",
+                "orange",
+                "green",
+                "blue",
+                "pink",
+                "turquoise",
+                "purple",
+                "none"
+            ]
+        },
+        "generateCard": {
+            "type": "boolean",
+            "description": "Indicates if the card should be generated."
+        }
+    }
+}

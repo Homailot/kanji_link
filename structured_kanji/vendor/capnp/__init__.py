@@ -34,28 +34,55 @@ Example Usage::
 
 # flake8: noqa F401 F403 F405
 from .version import version as __version__
-from .lib.capnp import *
-from .lib.capnp import (
-    _CapabilityClient,
-    _DynamicCapabilityClient,
-    _DynamicListBuilder,
-    _DynamicListReader,
-    _DynamicOrphan,
-    _DynamicResizableListBuilder,
-    _DynamicStructBuilder,
-    _DynamicStructReader,
-    _EventLoop,
-    _InterfaceModule,
-    _ListSchema,
-    _MallocMessageBuilder,
-    _PackedFdMessageReader,
-    _StreamFdMessageReader,
-    _StructModule,
-    _write_message_to_fd,
-    _write_packed_message_to_fd,
-    _AsyncIoStream as AsyncIoStream,
-    _init_capnp_api,
-)
+try:
+    from .lib.capnp import *
+    from .lib.capnp import (
+        _CapabilityClient,
+        _DynamicCapabilityClient,
+        _DynamicListBuilder,
+        _DynamicListReader,
+        _DynamicOrphan,
+        _DynamicResizableListBuilder,
+        _DynamicStructBuilder,
+        _DynamicStructReader,
+        _EventLoop,
+        _InterfaceModule,
+        _ListSchema,
+        _MallocMessageBuilder,
+        _PackedFdMessageReader,
+        _StreamFdMessageReader,
+        _StructModule,
+        _write_message_to_fd,
+        _write_packed_message_to_fd,
+        _AsyncIoStream as AsyncIoStream,
+        _init_capnp_api,
+    )
 
-_init_capnp_api()
-add_import_hook()  # enable import hook by default
+    _init_capnp_api()
+    add_import_hook()  # enable import hook by default
+except ImportError:
+    from .lib9.capnp import *
+    from .lib9.capnp import (
+        _CapabilityClient,
+        _DynamicCapabilityClient,
+        _DynamicListBuilder,
+        _DynamicListReader,
+        _DynamicOrphan,
+        _DynamicResizableListBuilder,
+        _DynamicStructBuilder,
+        _DynamicStructReader,
+        _EventLoop,
+        _InterfaceModule,
+        _ListSchema,
+        _MallocMessageBuilder,
+        _PackedFdMessageReader,
+        _StreamFdMessageReader,
+        _StructModule,
+        _write_message_to_fd,
+        _write_packed_message_to_fd,
+        _AsyncIoStream as AsyncIoStream,
+        _init_capnp_api,
+    )
+
+    _init_capnp_api()
+    add_import_hook()

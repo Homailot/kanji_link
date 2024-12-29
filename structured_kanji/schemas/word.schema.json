@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "/structured_kanji/schemas/word.schema.json",
+    "$id": "word.schema.json",
     "title": "Word",
     "description": "A structured representation of a word and its senses for creating Anki flashcards.",
     "type": "object",
@@ -14,7 +14,7 @@
             "type": "array",
             "description": "The readings of the word using Anki's ruby syntax.",
             "items": {
-                "$ref": "/structured_kanji/schemas/reading.schema.json"
+                "$ref": "reading.schema.json"
             },
             "minItems": 1
         },
@@ -22,7 +22,7 @@
             "type": "array",
             "description": "The senses of the word.",
             "items": {
-                "$ref": "/structured_kanji/schemas/sense.schema.json"
+                "$ref": "sense.schema.json"
             },
             "minItems": 1
         },
@@ -98,7 +98,7 @@
         "definitionToWordSettings": {
             "type": "object",
             "description": "Indicates if the word should generate a card from definition to word.",
-            "$ref": "/structured_kanji/schemas/cardSettings.schema.json"
+            "$ref": "cardSettings.schema.json"
         }
     },
     "required": [

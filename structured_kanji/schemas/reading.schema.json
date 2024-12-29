@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "/structured_kanji/schemas/reading.schema.json",
+    "$id": " reading.schema.json",
     "title": "Reading",
     "description": "A structured representation of a reading for a given japanese word's meaning.",
     "type": "object",
@@ -27,7 +27,7 @@
                     },
                     "relatedReadings": {
                         "type": "array",
-                        "description": "Kana spellings used to disambiguate the reading for this specific word. Used when the reading is ambiguous, for example 一日 can be read as ついたち or いちにち.",
+                        "description": "Kana spellings used to disambiguate the reading for this specific word. Used when the reading is ambiguous.",
                         "items": {
                             "type": "string"
                         } 
@@ -35,7 +35,7 @@
                     "wordToDefinitionSettings": {
                         "type": "object",
                         "description": "Indicates if the word should generate a card this spelling to definition.",
-                        "$ref": "/structured_kanji/schemas/cardSettings.schema.json"
+                        "$ref": "cardSettings.schema.json"
                     }
                 },
                 "required": [

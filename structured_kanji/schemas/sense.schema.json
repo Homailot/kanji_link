@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "/structured_kanji/schemas/meaning.schema.json",
+    "$id": "sense.schema.json",
     "title": "Sense",
     "description": "A structured representation of a sense for a given japanese word's meaning.",
     "type": "object",

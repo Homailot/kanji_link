@@ -95,6 +95,7 @@ ENV/
 [Bb]in
 [Ii]nclude
 [Ll]ib
+!structured_kanji/vendor/**/lib
 [Ll]ib64
 [Ll]ocal
 [Ss]cripts

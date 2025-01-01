@@ -1,3 +1,4 @@
+-- Structured Kanji database schema -- version 0000
 CREATE TABLE IF NOT EXISTS "word" (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     image TEXT NOT NULL DEFAULT '',
@@ -23,14 +24,6 @@ CREATE TABLE IF NOT EXISTS "spelling" (
     kanji TEXT NOT NULL DEFAULT '', -- the actual kanji
     spelling_info TEXT NOT NULL DEFAULT '', -- additional information about the spelling, such as uncommon readings, etc.
     manual_related_readings TEXT NOT NULL DEFAULT '',
-    FOREIGN KEY (reading_id) REFERENCES reading(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS "related_readings" (
-    spelling_id INTEGER NOT NULL,
-    reading_id INTEGER NOT NULL,
-    PRIMARY KEY (spelling_id, reading_id),
-    FOREIGN KEY (spelling_id) REFERENCES spelling(id) ON DELETE CASCADE,
     FOREIGN KEY (reading_id) REFERENCES reading(id) ON DELETE CASCADE
 );
 
@@ -105,14 +98,3 @@ CREATE INDEX IF NOT EXISTS "idx_word_additional_fields_word_id" ON "word_additio
 CREATE INDEX IF NOT EXISTS "idx_word_additional_fields_field_id" ON "word_additional_fields" (field_id);
 CREATE INDEX IF NOT EXISTS "idx_frequency_word_id" ON "frequency" (word_id);
 CREATE INDEX IF NOT EXISTS "idx_sentence_word_id" ON "sentence" (word_id);
-
-
-CREATE TRIGGER IF NOT EXISTS "add_related_readings_on_spelling_insert" AFTER INSERT ON "spelling"
-BEGIN
--- think on whether this makes sense or not
-    INSERT INTO related_readings (spelling_id, reading_id)
-    SELECT new.id, reading.id
-    FROM reading
-    WHERE reading.kana = (SELECT reading.kana FROM reading WHERE id = new.reading_id)
-    AND reading.id != new.reading_id;
-END;
